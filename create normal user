@@ -1,0 +1,29 @@
+root loading
+root权限用户登录
+$sudo -s
+#
+创建用户，-m表示同时创建用户根目录
+#useradd -m [UserName]
+为创建的用户[UserName]设置密码
+#passwd [UserName]
+为用户添加对/etc/sudoers目录的写权限，默认只有root拥有只读权限
+#chmod u+w /etc/sudoers
+查看文件权限
+#ls -l /etc/sudoers
+用命令修改/etc/sudoers文件
+#echo "[UserName] ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+#chmod u-w /etc/sudoers
+切换到backup账号测试验证：
+#su - [UserName]
+$
+$sudo -s
+#
+
+设置允许远程登录，linux一般都通过ssh远程连接，修改/etc/ssh/sshd_config文件
+在结尾处添加 AllowUsers 用户名，如 AllowUsers zhangsan
+保存，退出
+
+重启ssh服务
+#service sshd restart
+查看当前有效用户名
+#whoami
