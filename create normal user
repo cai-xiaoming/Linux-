@@ -19,11 +19,16 @@ $
 $sudo -s
 #
 
-设置允许远程登录，linux一般都通过ssh远程连接，修改/etc/ssh/sshd_config文件
-在结尾处添加 AllowUsers 用户名，如 AllowUsers zhangsan
-保存，退出
+云服务器本就支持ssh服务
+创建用户之后可以直接登录ssh 用户名@服务器地址
 
 重启ssh服务
 #service sshd restart
 查看当前有效用户名
-#whoami
+$whoami
+创建用户useradd（仅/etc/sudoers中授权用户可执行sudo）
+$sudo useradd -s /bin/bash -g GROUP -m NAME
+设置指定用户密码
+$sudo passwd 用户名
+查看所有用户
+$cat /etc/passwd
