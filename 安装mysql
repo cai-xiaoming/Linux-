@@ -1,0 +1,14 @@
+# yum install mariadb-server -y //若是已安装能够省略  
+# systemctl start mariadb.service //启动服务  
+# systemctl enable mariadb.service //开机启动服务
+# service mariadb status //查看mysql状态  
+# mysql -u root -p //登陆mysql  
+MariaDB[(none)]>ALTER USER 'root'@'localhost' IDENTIFIED BY 'root'; //修改密码命令
+//开启远程访问权限步骤：
+MariaDB[(none)]>use mysql;
+MariaDB[(mysql)]>select host, user, authentication_string, plugin from user;
+//我们会发现root的host是localhost，不是%， 那我们就加个host是%的root账号
+MariaDB[(mysql)]>CREATE USER 'root'@'%' IDENTIFIED BY 'root';
+MariaDB[(mysql)]>select host, user, authentication_string, plugin from user; //重新查询用户
+MariaDB[(mysql)]>GRANT ALL ON *.* TO 'root'@'%';
+//如果还不成功，可能Linux没有开放3306端口
