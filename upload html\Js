@@ -1,12 +1,59 @@
-#这些内容仅在CentOS 8系统中运行
-#启动httpd服务
+#这些内容仅在CentOS 8系统中运行#
+
+#发布静态网页#
+#httpd服务#
+#首先需要在服务器中安装httpd#
+#yum install httpd -y（默认一律回答yes）
+#启动httpd服务#
 #systemctl start httpd
-#查看httpd服务状态
+#查看httpd服务状态#
 #systemctl status httpd/#ps -ef|grep httpd
+#Apache默认的网站数据是存放在/var/www/html目录中的，首页名称是index.html，可以动手写入一个文件代替默认页面#
+#将在119行的DocumentRoot参数修改为存放index.html的文件夹 "/home/chs",再把在123行的”/var/www“修改为对应的文件夹 "/home/chs"，保存并退出wq（x）#
 
-#发布静态网页
-#将在119行的DocumentRoot参数修改为存放index.html的文件夹 "/home/chs",再把在123行的”/var/www“修改为对应的文件夹 "/home/chs"，保存并退出wq（x）
+#nginx服务#
+#安装nginx#
+#yum install nginx -y
+#启动nginx服务#
+#nginx
+#修改nginx配置文件，文件目录/etc/nginx/nginx.conf#
+server {
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        server_name  _;
 
-#发布node.js网页
-#cd到对应文件夹中
-#npm build
+        // 修改root默认目录
+        root         /data/www;
+
+        include /etc/nginx/default.d/*.conf;
+
+        location / {
+        // 修改nginx在path为'/’下的访问目录
+        root        /data/www;
+        }
+
+        error_page 404 /404.html;
+            location = /40x.html {
+        }
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html {
+        }
+    }
+#之后创建/data/www文件夹及一个index.html文件#
+#mkdir -p /data/www
+#并在/data/www目录下创建一个html文件让nginx访问#
+#touch index.html
+#index.html代码为#
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>hello world</title>
+</head>
+<body>
+Hello world！
+</body>
+</html>
+
+
