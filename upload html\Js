@@ -1,0 +1,12 @@
+#这些内容仅在CentOS 8系统中运行
+#启动httpd服务
+#systemctl start httpd
+#查看httpd服务状态
+#systemctl status httpd/#ps -ef|grep httpd
+
+#发布静态网页
+#将在119行的DocumentRoot参数修改为存放index.html的文件夹 "/home/chs",再把在123行的”/var/www“修改为对应的文件夹 "/home/chs"，保存并退出wq（x）
+
+#发布node.js网页
+#cd到对应文件夹中
+#npm build
